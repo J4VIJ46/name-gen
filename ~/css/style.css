@@ -1,0 +1,501 @@
+*{
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.options{
+    margin-left: 12px;
+}
+
+[id$="options-dropdown"]{
+   width: 200px;
+   max-width: 230px;
+}
+
+body{
+    margin: 0;
+    font-family: "Russo One", Inconsolata, monospace;
+    overflow:-moz-hidden-unscrollable;
+}
+
+.gears-icon{
+    position: absolute !important;
+    left: 10px;
+    top: 150px;
+    width: 30px;
+    height: 30px;
+    opacity: 60%;
+}
+.gears-icon:hover{
+    opacity: 100%;
+}
+
+.gear-icon{
+    top: 5px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+    opacity: 80%;
+}
+
+.wrapper{
+    padding: 10px 0px 10px 0px;
+    margin-right: 10px;
+}
+
+
+
+.opt-desc{
+    color: rgb(210, 113, 255);
+    text-shadow: 0px 0px 7px rgb(210, 113, 255); 
+    font-size: 20px;
+    white-space: nowrap;
+}
+.opt-desc::after{
+    content:":";
+}
+
+
+.wrapper > label {
+    display:inline-block;
+    width: fit-content;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.txt-left{
+    text-align: left;
+}
+
+.txt-right{
+    text-align: right;
+}
+
+.bg-dark{
+    background: #260e38;
+}
+
+.text-header{
+    width: 100%;
+    font-size: 74px;
+    font-style: oblique;
+    font-weight: 900;
+}
+
+.version {
+    position: absolute;
+    font-size: 10px;
+    color: white;
+    float: right;
+    margin-top: 70px;
+    margin-left: 90%;
+}
+
+.gr-color-retro{
+    position: absolute;
+    color: transparent;
+    background-image: -webkit-linear-gradient(270deg, #000000 30%, #0e2877 35%, #fbfbfd 50%, #3f113c 50%, #8a2c9f 59% , #fbfbfd 75%);
+    background-size: 100% 80px;
+    -webkit-background-clip: text;
+}
+
+.txt-glow-blue{
+    text-shadow: -2px 2px 5px #3500c5, -2px 2px 2px #3500c5 ;
+}
+
+.text-header{
+    margin-left: 20px;
+}
+
+.wh-inherit{
+    width: inherit;
+    height: inherit;
+}
+
+.button-cust{
+    position: relative;
+    border: none;
+    background-color: transparent;
+    color: rgb(207, 207, 207);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 36px;
+    font-family: inherit;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button-cust:hover{
+    color: #220337;
+    background-color: rgb(207, 207, 207);
+}
+
+.container input[type="number"]{
+    background-color: transparent;
+    color: rgb(210, 113, 255);
+    font-family: inherit;
+    font-size: 20px;
+    width: 50px;
+    height: 24px;
+    opacity: 100%;
+    padding: 2px 0px 2px 2px;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    border: 1px solid rgb(210, 113, 255);
+    float: right;
+}
+
+input[type="number"]:focus{
+    outline: none;
+}
+
+.grid-container {
+    display: none;
+    grid-template-columns: auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+    padding-bottom: 10px;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container{
+    width: inherit;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.gear-icon:hover, .gear-icon:focus {
+    opacity: 100%;
+  }
+
+.dropdown {
+    position: absolute;
+    display: inline-block;
+  }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.6);
+    width: inherit;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 700;
+    align-content: stretch;
+}
+  
+  .dropdown-content a {
+    color: rgb(210, 113, 255);
+    text-shadow: 0px 0px 7px rgb(210, 113, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+  .checkmark:hover .dropdown-content {
+    display: block;
+}
+  
+  /* Hide the browser's default checkbox */
+.container input {
+    position: relative;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+  
+  /* Create a custom checkbox */
+.checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    background-color: transparent;
+    color: rgb(126, 126, 126);
+}
+
+.container input:checked ~ .checkmark2:after {
+    display: block;
+  }
+  
+  /* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    color: rgb(233, 233, 233);
+}
+
+.container.gear-icon:hover input ~ .gear-icon {
+    opacity: 100%;
+}
+  
+  /* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark{
+    color: white;
+}
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+  /* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: flex;
+}
+  
+  /* Style the checkmark/indicator */
+
+input:checked + .checkmark{
+    text-shadow: 0px 0px 5px rgb(210, 113, 255), 0px 0px 2px rgb(255, 255, 255);
+    color: white;
+}
+
+.checkmark2 {
+    position: absolute;
+    display: block;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    background-color: transparent;
+    outline: 2px solid rgb(126, 126, 126);
+    border: 4px solid #260e38;
+    color: rgb(126, 126, 126);
+}
+
+.checkmark2:hover {
+    background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark2 {
+    background-color: white;
+    outline: 2px solid rgb(255, 255, 255);
+}
+
+.container input:checked ~ label {
+    text-shadow: 0px 0px 5px rgb(210, 113, 255), 0px 0px 2px rgb(255, 255, 255);
+    color: white;
+}
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+.checkmark2:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkmark2 + label{
+    position: absolute;
+    left: 30px;
+    color: rgb(126, 126, 126);
+}
+  
+  /* Show the checkmark when checked */
+.container input:checked ~ .checkmark2:after {
+    display: block;
+}
+  
+  /* Style the checkmark/indicator */
+.container .checkmark2:after {
+    background-color: white;
+}
+
+.content{
+    width: 100%;
+}
+
+.test-style{
+    font-size: 30px;
+    padding: 10px;
+    border-bottom: 4px solid rgb(163, 163, 163);
+    border-top: 4px solid rgb(163, 163, 163);
+    color: rgb(207, 207, 207);
+}
+
+.font-large{
+    font-size:large;
+}
+
+.overlay{
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 900;
+    pointer-events: none;
+}
+
+.screen-line{
+    position: absolute;
+    top: 0;
+    margin: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    animation-name: bottom-up;
+    animation-timing-function: linear;
+    animation-duration: 5s;
+    animation-direction: reverse;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+    z-index: 800;
+    opacity: 40%;
+}
+
+.screen-texture{
+    background-size: 100% 4px, 4px 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.2) 50%);
+    opacity: 70%;
+}
+
+.name-field{
+    background-color: #190925;
+    min-width: 300px;
+    max-width: 700px;
+    height: fit-content;
+    font-family: inherit;
+    display: grid;
+    text-align: center;
+    text-shadow: 0px 0px 7px rgb(210, 113, 255);
+    box-shadow: 0px 0px 7px rgb(210, 113, 255);
+    margin: auto;
+    color: rgb(210, 113, 255);
+    font-size: 50px;
+}
+.name-field:focus
+{
+    border: 0px;
+    outline: 0;
+}
+
+.anim-in-to_right{
+    position: relative;
+    animation-name: in-to_right;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+    animation-fill-mode: backwards;
+}
+
+.anim-in-to_bottom{
+    position: relative;
+    animation-name: in-to_bottom;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+    animation-fill-mode: backwards;
+}
+
+.anim-burning{
+    animation-name: burning;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+    animation-direction: reverse;
+    animation-fill-mode: both;
+}
+
+.anim-del-small{
+    animation-delay: 0.3;
+}
+
+@keyframes in-to_right{
+    0% 
+    {
+        opacity: 0%;
+        left: -30px;
+    }
+    100%
+    {
+        left: 0px;
+    }
+}
+
+@keyframes in-to_bottom{
+    0% 
+    {
+        opacity: 0%;
+        top: -15px;
+    }
+    100%
+    {
+        opacity: 100%;
+        top: 0px;
+    }
+}
+
+@keyframes bottom-up{
+    0% 
+    {
+        top:1px
+    }
+    100%
+    {
+        top:99.9%
+    }
+}
+
+@keyframes burning{
+    0% 
+    {
+        text-shadow: transparent;
+    }
+    100%
+    {
+        text-shadow: inherit;
+    }
+}
+
+
+
+[class*="col-"]{
+    width: 100%;
+  }
+  
+  @media only screen and (min-width: 600px){
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+  }
+  @media only screen and (min-width: 768px){
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+  }

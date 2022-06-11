@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF8">
+        <title>NameGen9000</title>
+        <link rel="icon" type="image/x-icon" href="~/css/pics/2.ico">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="js/script.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="~/css/style.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-dark">
+        <div class="overlay screen-texture"></div>
+        <div class="screen-line"></div>
+        <header>
+            <div class="version">
+                v.0.1
+            </div>
+            <div class="flex-container">
+                <div class="text-header gr-color-retro txt-center">
+                    NAMEGEN9000
+                </div>    
+                <div class="text-header txt-center txt-glow-blue anim-burning">
+                    NAMEGEN9000
+                </div>
+            </div>                       
+        </header>
+        <div class="test-style">
+            <p class="txt-center font-large cursorprefix anim-in-to_right">
+                This is fully autonomous unique name generator.<br>
+                Please choose your preferences and press the generate button below to proceed. <br>
+                Enjoy your time.
+            </p>
+        </div>
+        <div class="flex-container">
+            <label class="container gears-icon" id="all-options-dropdown-toggle-button">
+                <img src="~\css\pics\gears-configuration-tool-svgrepo-com.svg"></object>
+            </label>
+            <div class="wrapper anim-in-to_bottom", style="animation-delay: 0.25s;">
+                <label class="container gear-icon" id="consec-options-dropdown-toggle-button">
+                    <img src="~\css\pics\icons8-settings.svg" class="gear-icon"></object>
+                </label>
+                <label class="container col-s-4">
+                    <input type="checkbox" id="consec-mainoption-toggle-button">
+                    <span class="checkmark">Rows</span>
+                </label>
+                <div id="consec-options-dropdown" class="grid-container">
+                    <label class="container options">
+                        <input type="checkbox" id="consec-option-toggle-button-conson">
+                        <span class="checkmark2"></span>
+                        <label>Consonants</label>
+                    </label>
+                    <label></label>
+                    <label class="container options">
+                        <input type="checkbox" id="consec-option-toggle-button-vowels">
+                        <span class="checkmark2"></span>
+                        <label>Vowels</label>
+                    </label>
+                    <label></label>
+                    <label class="container options">
+                        <label class="opt-desc">Max in a row</label>
+                        <input id="consec-maxrow-option-input" type="number" value="2">
+                    </label>
+                </div>
+            </div>
+            <div class="wrapper anim-in-to_bottom", style="animation-delay: 0.25s;">
+                <label class="container gear-icon" id="capital-options-dropdown-toggle-button">
+                    <img src="~\css\pics\icons8-settings.svg" class="gear-icon"></object>
+                </label>
+                <label class="container col-s-4">
+                    <input type="checkbox" id="capital-mainoption-toggle-button">
+                    <span class="checkmark">Capitals</span>
+                </label>
+                <div id="capital-options-dropdown" class="grid-container">
+                    <label class="container options">
+                        <input type="checkbox" id="capital-option-toggle-button-frstcap">
+                        <span class="checkmark2"></span>
+                        <label>First letter</label>
+                    </label>
+                    <label></label>
+                    <label class="container options">
+                        <input type="checkbox" id="capital-option-toggle-button-random">
+                        <span class="checkmark2"></span>
+                        <label>Random</label>
+                    </label>
+                </div>
+            </div>
+            <div class="wrapper anim-in-to_bottom", style="animation-delay: 0.25s;">
+                <label class="container gear-icon" id="numbers-options-dropdown-toggle-button">
+                    <img src="~\css\pics\icons8-settings.svg" class="gear-icon"></object>
+                </label>
+                <label class="container col-s-4">
+                    <input type="checkbox" id="numbers-mainoption-toggle-button">
+                    <span class="checkmark">Numbers</span>
+                </label>
+                <div id="numbers-options-dropdown" class="grid-container">
+                    <label class="container options">
+                        <label class="opt-desc">Max in a row</label>
+                        <input id="numbers-maxrow-option-input" type="number" value="1">
+                    </label>
+                </div>
+            </div>
+            <div class="wrapper anim-in-to_bottom", style="animation-delay: 0.25s;">
+                <label class="container gear-icon" id="length-options-dropdown-toggle-button">
+                    <img src="~\css\pics\icons8-settings.svg" class="gear-icon"></object>
+                </label>
+                <label class="container col-s-4">
+                    <input type="checkbox" id="length-mainoption-toggle-button">
+                    <span class="checkmark">Custom Length</span>
+                </label>
+                <div id="length-options-dropdown" class="grid-container">
+                    <label class="container options">
+                        <label class="opt-desc">Max length</label>
+                        <input id="length-maxlength-option-input" type="number" value="10">
+                    </label>
+                    <label></label>
+                    <label class="container options">
+                        <label class="opt-desc">Min length</label>
+                        <input id="length-minlength-option-input" type="number" value="3">
+                    </label>
+                </div>
+            </div>
+            <div class="wrapper anim-in-to_bottom", style="animation-delay: 0.25s;">
+                <label class="container gear-icon" id="wordcount-options-dropdown-toggle-button">
+                    <img src="~\css\pics\icons8-settings.svg" class="gear-icon"></object>
+                </label>
+                <label class="container col-s-4">
+                    <input type="checkbox" id="wordcount-mainoption-toggle-button">
+                    <span class="checkmark">Word count</span>
+                </label>
+                <div id="wordcount-options-dropdown" class="grid-container">
+                    <label class="container options">
+                        <label class="opt-desc">Word count</label>
+                        <input id="wordcount-option-input" type="number" value="1">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <button class="button-cust std-hov col-s-12 anim-in-to_bottom", style="animation-delay: 0.5s;", id="generateName">
+            Generate
+        </button>
+        <input type="text" class="name-field anim-in-to_bottom", style="animation-delay: 0.5s;", id="nf"></input>
+    </body>
+</html>
