@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 function generateName(
     consonantsConsecFlag,
     vowelConsecFlag,
@@ -10,9 +8,10 @@ function generateName(
     wCountFlag,
     wCountStr,
     numbersFlag,
-    numbersMaxStr
-) {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz1234567890".split("");
+    numbersMaxStr,
+    capitalsRandomFlag,
+    capitalsFLFlag) {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
     let numMax = 0;
     let lenMin = 0;
@@ -23,8 +22,8 @@ function generateName(
         lenMax = parseInt(lenMaxStr);
     }
     if (numbersFlag) numMax = parseInt(numbersMaxStr);
-
     let wCount = wCountFlag ? parseInt(wCountStr) : 1;
+    let endPointer = capitalsRandomFlag ? 61 : 35;
     let consecMax = parseInt(consecMaxStr);
 
     if (isNaN(lenMin) || lenMin === 0) lenMin = 3;
@@ -46,7 +45,7 @@ function generateName(
         const name = [];
 
         while (name.length < prgnNameLength) {
-            const newLetter = alphabet[randNum(0, 35)];
+            let newLetter = alphabet[randNum(0, endPointer)];
             if (isVowel(newLetter)) {
                 if (vowCounter >= consecMax || (vowCounter > 0 && !vowelConsecFlag))
                     continue;
@@ -68,6 +67,7 @@ function generateName(
                 vowCounter = 0;
                 numCounter++;
             }
+            if(name.length == 0 && capitalsFLFlag) newLetter = newLetter.toUpperCase();
             name.push(newLetter);
         }
         fullname.push(name.join(""));
@@ -119,8 +119,9 @@ function followChildrenOptions(mainOptionButtons) {
         });
     });
 }
+
 // Search for existing option buttons and execute linking
-function ConfigureOptionLinks() {
+function configureOptionLinks() {
     const mOpts = $("[id*='mainoption-toggle-button']");
     followMainOption(mOpts);
     followChildrenOptions(mOpts);
@@ -142,7 +143,8 @@ function followMainOption(mainOptionButtons) {
     });
 }
 
-function ConfigureTogglerDropdown() {
+// Search and initiate link between existing dropdowns and togglers
+function configureTogglerDropdown() {
     const dTBs = $("[id*='options-dropdown-toggle-button']");
     linkTogglerToDropdown(dTBs);
 }
@@ -163,6 +165,19 @@ function linkTogglerToDropdown(toggleButtons) {
                 ? $(dropdownElementStrId).css("display", "grid")
                 : $(dropdownElementStrId).css("display", "none");
         });
+    });
+}
+
+// Break activation of all suboptions rule for capitals option
+function tweakCapitalsMainOptionLinks() {
+    $("#capital-mainoption-toggle-button").click(function () {
+        if($(this).prop("checked")) {
+            $("#capital-option-toggle-button-random").prop("checked", true)
+        }
+        else {
+            $("#capital-option-toggle-button-random").prop("checked", false);
+        }
+        $("#capital-option-toggle-button-frstcap").prop("checked", false);
     });
 }
 
@@ -202,15 +217,19 @@ $(document).ready(() => {
                     $("#wordcount-mainoption-toggle-button").prop("checked"),
                     $("#wordcount-option-input").val(),
                     $("#numbers-mainoption-toggle-button").prop("checked"),
-                    $("#numbers-maxrow-option-input").val()
+                    $("#numbers-maxrow-option-input").val(),
+                    $("#capital-option-toggle-button-random").prop("checked"),
+                    $("#capital-option-toggle-button-frstcap").prop("checked")
                 )
             );
         }
     });
 
-    ConfigureTogglerDropdown();
+    configureTogglerDropdown();
 
-    ConfigureOptionLinks();
+    configureOptionLinks();
+
+    tweakCapitalsMainOptionLinks();
 
     $($("#all-options-dropdown-toggle-button")).click(function() {
         $("[id$='-options-dropdown']").css("display") === "none"
