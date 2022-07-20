@@ -1,84 +1,107 @@
-*{
+:root {
+    --selected-text-glow: 0px 0px 5px rgb(210, 113, 255), 0px 0px 2px rgb(255, 255, 255); 
+}
+* {
     border: 0;
     margin: 0;
     padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.options{
+.options {
+    position: relative;
     margin-left: 12px;
 }
 
-[id$="options-dropdown"]{
-   width: 200px;
-   max-width: 230px;
+[id$="options-dropdown"] {
+    display: none;
+    width: 250px;
+    grid-template-columns: 1fr
 }
 
-body{
+[id$="options-dropdown"] > label {
+    margin-bottom: 20px;
+}
+
+body {
     margin: 0;
     font-family: "Russo One", Inconsolata, monospace;
     overflow:-moz-hidden-unscrollable;
 }
 
-.gears-icon{
-    position: absolute !important;
+.main-description {
+    font-size: 18px;
+    text-align: center;
+}
+
+.gears-icon {
+    position: absolute;
+    text-indent: -9999px;
     left: 10px;
     top: 150px;
     width: 30px;
     height: 30px;
     opacity: 60%;
+    background-image: url("../pics/gears-configuration-tool-svgrepo-com.svg");
+    background-size: 30px 30px;
 }
-.gears-icon:hover{
+
+.gears-icon:hover {
     opacity: 100%;
 }
 
-.gear-icon{
+.gear-icon {
+    position: relative;
+    display: inline-block;
     top: 5px;
     left: 12px;
     width: 20px;
     height: 20px;
-    opacity: 80%;
+    opacity: 60%;
+    background-image: url("../pics/icons8-settings.svg");
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
 }
 
-.wrapper{
-    padding: 10px 0px 10px 0px;
-    margin-right: 10px;
+.gear-icon:hover {
+    opacity: 100%;
 }
 
+.input-option-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
 
+.option-wrapper {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    justify-content: space-between;
+    padding: 5px 0px 5px 0px;
+}
 
-.opt-desc{
+.input-suboption-description {
+    display: inline;
     color: rgb(210, 113, 255);
     text-shadow: 0px 0px 7px rgb(210, 113, 255); 
     font-size: 20px;
     white-space: nowrap;
 }
-.opt-desc::after{
+
+.input-suboption-description::after {
     content:":";
 }
 
-
-.wrapper > label {
-    display:inline-block;
-    width: fit-content;
-}
-
-.txt-center{
-    text-align: center;
-}
-
-.txt-left{
-    text-align: left;
-}
-
-.txt-right{
-    text-align: right;
-}
-
-.bg-dark{
+.bg-dark {
     background: #260e38;
 }
 
-.text-header{
+.text-header {
+    text-align: center;
     width: 100%;
     font-size: 74px;
     font-style: oblique;
@@ -94,7 +117,7 @@ body{
     margin-left: 90%;
 }
 
-.gr-color-retro{
+.gr-color-retro {
     position: absolute;
     color: transparent;
     background-image: -webkit-linear-gradient(270deg, #000000 30%, #0e2877 35%, #fbfbfd 50%, #3f113c 50%, #8a2c9f 59% , #fbfbfd 75%);
@@ -102,39 +125,28 @@ body{
     -webkit-background-clip: text;
 }
 
-.txt-glow-blue{
-    text-shadow: -2px 2px 5px #3500c5, -2px 2px 2px #3500c5 ;
+.txt-glow-blue {
+    text-shadow: -2px 2px 5px #3500c5, -2px 2px 2px #3500c5;
 }
 
-.text-header{
-    margin-left: 20px;
-}
-
-.wh-inherit{
-    width: inherit;
-    height: inherit;
-}
-
-.button-cust{
-    position: relative;
-    border: none;
+.generate-btn {
     background-color: transparent;
     color: rgb(207, 207, 207);
-    padding: 15px 32px;
+    padding: 10px;
+    margin-top: 26px;
+    width: 100%;
     text-align: center;
-    text-decoration: none;
     font-size: 36px;
     font-family: inherit;
-    margin: 4px 2px;
-    cursor: pointer;
 }
 
-.button-cust:hover{
+.generate-btn:hover {
     color: #220337;
-    background-color: rgb(207, 207, 207);
+    background-color: rgb(153, 153, 153);
 }
 
-.container input[type="number"]{
+input[type="number"] {
+    display: inline;
     background-color: transparent;
     color: rgb(210, 113, 255);
     font-family: inherit;
@@ -149,191 +161,85 @@ body{
     float: right;
 }
 
-input[type="number"]:focus{
+input[type="number"]:focus {
     outline: none;
 }
 
-.grid-container {
-    display: none;
-    grid-template-columns: auto auto;
-    row-gap: 10px;
-    column-gap: 10px;
-    padding-bottom: 10px;
+.mainoptions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.flex-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.container{
-    width: inherit;
-    position: relative;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.gear-icon:hover, .gear-icon:focus {
-    opacity: 100%;
-  }
-
-.dropdown {
-    position: absolute;
-    display: inline-block;
-  }
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgba(0,0,0,0.6);
-    width: inherit;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 700;
-    align-content: stretch;
-}
-  
-  .dropdown-content a {
-    color: rgb(210, 113, 255);
-    text-shadow: 0px 0px 7px rgb(210, 113, 255);
-    padding: 12px 16px;
-    text-decoration: none;
-}
-
-.dropdown-content a:hover {background-color: #ddd}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
-  .checkmark:hover .dropdown-content {
+.mainoption-container {
     display: block;
 }
-  
-  /* Hide the browser's default checkbox */
-.container input {
-    position: relative;
+.mainoption-container > m{
+    display: block;
+}
+/* hide default checkbox design */
+[id*="option-toggle-button"] {
     opacity: 0;
     cursor: pointer;
     height: 0;
     width: 0;
 }
-  
-  /* Create a custom checkbox */
-.checkmark {
+
+.checkbox-mainoption {
     position: relative;
-    top: 0;
-    left: 0;
-    width: inherit;
-    height: inherit;
+    display: inline;
+    font-size: 20px;
+    width: fit-content;
+    height: fit-content;
     background-color: transparent;
     color: rgb(126, 126, 126);
 }
-
-.container input:checked ~ .checkmark2:after {
-    display: block;
-  }
   
-  /* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
+.checkbox-mainoption:hover {
     color: rgb(233, 233, 233);
 }
 
-.container.gear-icon:hover input ~ .gear-icon {
-    opacity: 100%;
-}
-  
-  /* When the checkbox is checked, add a blue background */
-.container input:checked ~ .checkmark{
-    color: white;
-}
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-  
-  /* Show the checkmark when checked */
-.container input:checked ~ .checkmark:after {
-    display: flex;
-}
-  
-  /* Style the checkmark/indicator */
-
-input:checked + .checkmark{
-    text-shadow: 0px 0px 5px rgb(210, 113, 255), 0px 0px 2px rgb(255, 255, 255);
+input:checked + .checkbox-mainoption {
+    text-shadow: var(--selected-text-glow);
     color: white;
 }
 
-.checkmark2 {
-    position: absolute;
-    display: block;
-    top: 5px;
+.checkbox-suboption {
+    position: relative;
+    display: inline-block;
     width: 8px;
     height: 8px;
     background-color: transparent;
     outline: 2px solid rgb(126, 126, 126);
     border: 4px solid #260e38;
-    color: rgb(126, 126, 126);
 }
 
-.checkmark2:hover {
+.suboption-description {
+    position: relative;
+    display: inline;
+    color: rgb(126, 126, 126);
+    font-size: 20px;
+    text-indent: 20px;
+}
+
+.checkbox-suboption:hover {
     background-color: #ccc;
 }
 
-.container input:checked ~ .checkmark2 {
+input:checked + .checkbox-suboption {
     background-color: white;
-    outline: 2px solid rgb(255, 255, 255);
+    outline: 2px solid #fff;
 }
 
-.container input:checked ~ label {
-    text-shadow: 0px 0px 5px rgb(210, 113, 255), 0px 0px 2px rgb(255, 255, 255);
+input:checked + .checkbox-suboption + .suboption-description {
+    text-shadow: var(--selected-text-glow);
     color: white;
 }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-.checkmark2:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
 
-.checkmark2 + label{
-    position: absolute;
-    left: 30px;
-    color: rgb(126, 126, 126);
-}
-  
-  /* Show the checkmark when checked */
-.container input:checked ~ .checkmark2:after {
-    display: block;
-}
-  
-  /* Style the checkmark/indicator */
-.container .checkmark2:after {
-    background-color: white;
-}
-
-.content{
-    width: 100%;
-}
-
-.test-style{
-    font-size: 30px;
+.white-vertical-borders{
     padding: 10px;
     border-bottom: 4px solid rgb(163, 163, 163);
     border-top: 4px solid rgb(163, 163, 163);
     color: rgb(207, 207, 207);
-}
-
-.font-large{
-    font-size:large;
 }
 
 .overlay{
@@ -370,22 +276,82 @@ input:checked + .checkmark{
 
 .name-field{
     background-color: #190925;
-    min-width: 300px;
-    max-width: 700px;
     height: fit-content;
     font-family: inherit;
-    display: grid;
+    display: block;
     text-align: center;
     text-shadow: 0px 0px 7px rgb(210, 113, 255);
     box-shadow: 0px 0px 7px rgb(210, 113, 255);
     margin: auto;
     color: rgb(210, 113, 255);
     font-size: 50px;
+    width: 90%;
+    opacity: 100%;
+    -webkit-user-select:text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 .name-field:focus
 {
     border: 0px;
     outline: 0;
+}
+
+.input-suboption-range-value{
+    display: inline;
+    color: rgb(210, 113, 255);
+    text-shadow: 0px 0px 7px rgb(210, 113, 255); 
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.alert-field {
+    
+}
+
+.slider {
+    display: inline;
+    -webkit-appearance: none;  
+    appearance: none;
+    width: 60px; 
+    height: 15px;
+    background: rgb(210, 113, 255);
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
+    transition: opacity .2s;
+    margin-top: 5px;
+    position: absolute;
+    left: 160px;
+}
+
+.slider:hover {
+    opacity: 1; 
+}
+
+.slider:disabled {
+    opacity: 0.2;
+}
+
+.slider:disabled + .input-suboption-range-value {
+    opacity: 0.2;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 15px; 
+    height: 15px; 
+    background: #190925; 
+    cursor: pointer; 
+}
+
+.slider::-moz-range-thumb {
+    width: 15px; 
+    height: 15px; 
+    background: #190925; 
+    cursor: pointer;
 }
 
 .anim-in-to_right{
@@ -404,8 +370,8 @@ input:checked + .checkmark{
     animation-fill-mode: backwards;
 }
 
-.anim-burning{
-    animation-name: burning;
+.anim-glowing{
+    animation-name: glowing;
     animation-iteration-count: 1;
     animation-duration: 1s;
     animation-direction: reverse;
@@ -452,7 +418,7 @@ input:checked + .checkmark{
     }
 }
 
-@keyframes burning{
+@keyframes glowing{
     0% 
     {
         text-shadow: transparent;
@@ -462,40 +428,53 @@ input:checked + .checkmark{
         text-shadow: inherit;
     }
 }
-
-
-
-[class*="col-"]{
-    width: 100%;
-  }
-  
-  @media only screen and (min-width: 600px){
-    /* For tablets: */
-    .col-s-1 {width: 8.33%;}
-    .col-s-2 {width: 16.66%;}
-    .col-s-3 {width: 25%;}
-    .col-s-4 {width: 33.33%;}
-    .col-s-5 {width: 41.66%;}
-    .col-s-6 {width: 50%;}
-    .col-s-7 {width: 58.33%;}
-    .col-s-8 {width: 66.66%;}
-    .col-s-9 {width: 75%;}
-    .col-s-10 {width: 83.33%;}
-    .col-s-11 {width: 91.66%;}
-    .col-s-12 {width: 100%;}
-  }
-  @media only screen and (min-width: 768px){
-    /* For desktop: */
-    .col-1 {width: 8.33%;}
-    .col-2 {width: 16.66%;}
-    .col-3 {width: 25%;}
-    .col-4 {width: 33.33%;}
-    .col-5 {width: 41.66%;}
-    .col-6 {width: 50%;}
-    .col-7 {width: 58.33%;}
-    .col-8 {width: 66.66%;}
-    .col-9 {width: 75%;}
-    .col-10 {width: 83.33%;}
-    .col-11 {width: 91.66%;}
-    .col-12 {width: 100%;}
-  }
+@media only screen and (max-width: 1300px){
+    .mainoptions-container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 1100px){
+    .mainoptions-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 800px){
+    .mainoptions-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media only screen and (max-width: 600px){
+    .gears-icon{
+        top: 120px;
+    }
+    .wrapper {
+        text-align: center;
+        width: 100%;
+        margin-left: 10px;
+    }
+    .name-field{
+        width: 95%;
+    }
+    .text-header{
+        font-size: 50px;
+    }
+    .gr-color-retro{
+        background-size: 100% 50px;
+    }
+    .main-description{
+        font-size: 14px;
+    }
+    .mainoptions-container{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .mainoption-container{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    [id$="options-dropdown"] {
+        margin-left: auto;
+        margin-right: auto;
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,100 +1,148 @@
 function generateName(
-    consonantsConsecFlag,
-    vowelConsecFlag,
-    consecMaxStr,
-    customLengthFlag,
-    lenMaxStr,
-    lenMinStr,
-    wCountFlag,
-    wCountStr,
-    numbersFlag,
-    numbersMaxStr,
-    capitalsRandomFlag,
-    capitalsFLFlag) {
-    const alphabet = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
-    let numMax = 0;
-    let lenMin = 0;
-    let lenMax = 0;
-
-    if (customLengthFlag) {
-        lenMin = parseInt(lenMinStr);
-        lenMax = parseInt(lenMaxStr);
-    }
-    if (numbersFlag) numMax = parseInt(numbersMaxStr);
-    let wCount = wCountFlag ? parseInt(wCountStr) : 1;
-    let endPointer = capitalsRandomFlag ? 61 : 35;
-    let consecMax = parseInt(consecMaxStr);
-
-    if (isNaN(lenMin) || lenMin === 0) lenMin = 3;
-    if (isNaN(lenMax) || lenMax === 0) lenMax = 10;
-    if (isNaN(numMax) || numMax === 0) numMax = 1;
-    if (isNaN(consecMax) || consecMax === 0) consecMax = 1;
-    if (isNaN(wCount) || wCount === 0) wCount = 1;
-
-    if (consonantsConsecFlag === undefined) consonantsConsecFlag = false;
-    if (vowelConsecFlag === undefined) vowelConsecFlag = false;
-
+    consonantsEnabled,
+    consonantsMaxRowLength,
+    consonantsMinRowLength,
+    consonantsMaxRowCount,
+    consonantsMinRowCount,
+    vowelsEnabled,
+    vowelsMaxRowLength,
+    vowelsMinRowLength,
+    vowelsMaxRowCount,
+    vowelsMinRowCount,
+    numbersEnabled,
+    numbersMaxRowLength,
+    numbersMinRowLength,
+    numbersMaxRowCount,
+    numbersMinRowCount,
+    wordParamsEnabled,
+    wordParamsWordCount,
+    wordParamsWordMaxlength,
+    wordParamsWordMinlength,
+    ) {
     const fullname = [];
 
-    for (let index = 0; index < wCount; index++) {
-        const prgnNameLength = randNum(lenMin, lenMax);
-        let conCounter = 0;
-        let vowCounter = 0;
-        let numCounter = 0;
-        const name = [];
+    wordParamsWordCount = wordParamsEnabled ? wordParamsWordCount : 1;
 
-        while (name.length < prgnNameLength) {
-            let newLetter = alphabet[randNum(0, endPointer)];
-            if (isVowel(newLetter)) {
-                if (vowCounter >= consecMax || (vowCounter > 0 && !vowelConsecFlag))
-                    continue;
-                conCounter = 0;
-                numCounter = 0;
-                vowCounter++;
-            } else if (isConsonant(newLetter)) {
-                if (
-                    conCounter >= consecMax ||
-                    (conCounter > 0 && !consonantsConsecFlag)
-                )
-                    continue;
-                vowCounter = 0;
-                numCounter = 0;
-                conCounter++;
-            } else if (isNumber(newLetter)) {
-                if (numCounter >= numMax || !numbersFlag) continue;
-                conCounter = 0;
-                vowCounter = 0;
-                numCounter++;
-            }
-            if(name.length == 0 && capitalsFLFlag) newLetter = newLetter.toUpperCase();
-            name.push(newLetter);
-        }
-        fullname.push(name.join(""));
+    const minCountThresholds = [consonantsEnabled ? consonantsMinRowCount : 0,vowelsEnabled ? vowelsMinRowCount : 0,numbersEnabled ? numbersMinRowCount : 0];
+    const maxCountThresholds = [consonantsEnabled ? consonantsMaxRowCount : 0,vowelsEnabled ? vowelsMaxRowCount : 0,numbersEnabled ? numbersMaxRowCount : 0];
+
+    let biggestMinThresholdIndex = getBiggestNumbersIndexes(minCountThresholds);
+    let biggestMaxThresholdIndex = getBiggestNumbersIndexes(maxCountThresholds);
+    let differenceForMin = DifferenceMarginOverflow(biggestMinThresholdIndex[0], 1, minCountThresholds);
+    let differenceForMax = DifferenceMarginOverflow(biggestMaxThresholdIndex[0], 1, maxCountThresholds);
+    if(differenceForMin < 0)
+    {
+        if(biggestMinThresholdIndex[0] === 0) consonantsMinRowCount+=differenceForMin
+        if(biggestMinThresholdIndex[0] === 1) vowelsMinRowCount+=differenceForMin;
+        if(biggestMinThresholdIndex[0] === 2) numbersMinRowCount+=differenceForMin;
+    }
+    if(differenceForMax < 0)
+    {
+        if(biggestMaxThresholdIndex[0] === 0) consonantsMaxRowCount+=differenceForMax;
+        if(biggestMaxThresholdIndex[0] === 1) vowelsMaxRowCount+=differenceForMax;
+        if(biggestMaxThresholdIndex[0] === 2) numbersMaxRowCount+=differenceForMax;
     }
 
-    const result = fullname.join(" ");
+
+    for (let index = 0; index < wordParamsWordCount; index++) {
+
+        let conRowCount = 0;
+        let vowRowCount = 0;
+        let numRowCount = 0;
+        
+        const desiredConRowCount = consonantsEnabled ? randNum(consonantsMinRowCount, consonantsMaxRowCount) : 0;
+        const desiredVowRowCount = vowelsEnabled ? randNum(vowelsMinRowCount, vowelsMaxRowCount) : 0;
+        const desiredNumRowCount = numbersEnabled ? randNum(numbersMinRowCount, numbersMaxRowCount) : 0;
+
+        let lastRowType = NaN;
+
+        let name = [];
+        let counts = [desiredConRowCount, desiredVowRowCount, desiredNumRowCount];
+        let biggestNumberIndexes = getBiggestNumbersIndexes(counts);
+        while (true) {
+            const charTypeIndex = biggestNumberIndexes[randNum(0,biggestNumberIndexes.length-1)];
+            if(charTypeIndex === 0 && consonantsEnabled && conRowCount < desiredConRowCount && lastRowType != charTypeIndex) {
+                name.push(generateRow(charTypeIndex, consonantsMinRowLength, consonantsMaxRowLength));
+                conRowCount++;
+                counts[0]--;
+                lastRowType = charTypeIndex;
+                biggestNumberIndexes = getBiggestNumbersIndexes([NaN, counts[1], counts[2]]);
+            } else if(charTypeIndex === 1 && vowelsEnabled && vowRowCount < desiredVowRowCount && lastRowType != charTypeIndex) {
+                name.push(generateRow(charTypeIndex, vowelsMinRowLength, vowelsMaxRowLength));
+                vowRowCount++;
+                counts[1]--;
+                lastRowType = charTypeIndex;
+                biggestNumberIndexes = getBiggestNumbersIndexes([counts[0], NaN, counts[2]]);
+            } else if(charTypeIndex === 2 && numbersEnabled && numRowCount < desiredNumRowCount && lastRowType != charTypeIndex) {
+                name.push(generateRow(charTypeIndex, numbersMinRowLength, numbersMaxRowLength));
+                numRowCount++;
+                counts[2]--;
+                lastRowType = charTypeIndex;
+                biggestNumberIndexes = getBiggestNumbersIndexes([counts[0], counts[1], NaN]);
+            }
+            
+            if(wordParamsEnabled && name.length === wordParamsWordMaxlength || (!consonantsEnabled && !vowelsEnabled && !numbersEnabled)) break;
+            if(conRowCount === desiredConRowCount && vowRowCount === desiredVowRowCount && numRowCount === desiredNumRowCount) break;
+        }
+        let nameJoined = name.join("");
+        if(wordParamsEnabled && nameJoined.length > wordParamsWordMaxlength) {
+            nameJoined=nameJoined.slice(0,wordParamsWordMaxlength-1);
+        }
+        fullname.push(nameJoined);
+    }
+    return fullname.join(" ");
+}
+
+function DifferenceMarginOverflow(index, maxdifference, values) {
+    let sum = 0;
+    for (let i = 0; i < values.length; i++) {
+        if(i === index) continue;
+        sum+=values[i];
+    }
+    return (sum + maxdifference)-values[index];
+}
+
+// generate and return sequence of specified character type
+function generateRow(charType, rowMinLength, rowMaxLength) {
+    let arr = [];
+    let rowLength = randNum(rowMinLength, rowMaxLength);
+    if(charType === 0) {
+        arr = "bcdfghjklmnpqrstvwxzy";
+    } else if(charType === 1) {
+        arr = "aeiou"; //y
+    } else if (charType === 2){
+        arr = "1234567890";
+    }
+    let result = "";
+    for(let i = result.length; i < rowLength; i++) {
+        result+=arr[randNum(0, arr.length-1)];
+    }
     return result;
 }
 
-function isVowel(elem) {
-    const vowels = "aeiouy".split("");
-    return vowels.includes(elem);
+// return biggest numerical value of an array
+function getArrayMax(array) {
+    let max = Number.MIN_VALUE;
+    for (let index = 0; index < array.length; index++) {
+        if(array[index]>max) max = array[index];
+    }
+    return max;
 }
 
-function isConsonant(elem) {
-    const consonants = "bcdfghjklmnpqrstvwxz".split("");
-    return consonants.includes(elem);
-}
-
-function isNumber(elem) {
-    const numbers = "1234567890".split("");
-    return numbers.includes(elem);
-}
+// return biggest number indexes of an array
+function getBiggestNumbersIndexes(numbersArray) {
+    let max = getArrayMax(numbersArray);
+    let result = [];
+    for (let index = 0; index < numbersArray.length; index++) {
+        if(numbersArray[index]===max)
+            result.push(index);
+    }
+    return result;
+} 
 
 // min & max values should be positive
 function randNum(min, max) {
-    if (max === 1) return Math.round(Math.random());
+    // if (max === 1) return Math.round(Math.random());
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
@@ -181,6 +229,58 @@ function tweakCapitalsMainOptionLinks() {
     });
 }
 
+// Search and initiate link between existing sliders and labels
+function configureSlider() {
+    const sliders = $("[id$='-option-input']");
+    linkSliderWithLabel(sliders);
+    linkMaxToMinSliders(sliders);
+    linkMinToMaxSliders(sliders)
+}
+
+// Bind sliders with value labels
+function linkSliderWithLabel(sliders) {
+    sliders.each(function () {
+        const sliderLabel = "#".concat("",$(this).prop("id").concat("","-value-label"));
+        $(sliderLabel).text($(this).val());
+        let mainToggler = "#".concat("", $(this).prop("id").split("-")[0]).concat("-mainoption-toggle-button");
+        $(this).on("input", function(){
+            $(sliderLabel).text($(this).val())
+            $(mainToggler).prop("checked", true);
+        })
+    });
+}
+
+// Bind Max to Min sliders
+function linkMaxToMinSliders(sliders) {
+    sliders.each(function () {
+        if($(this).prop("id").includes("min")) {
+            const sliderPairID = "#".concat("", $(this).prop("id")).replace("min", "max");
+            $(this).on("input", function(){
+                if(parseInt($(sliderPairID).val()) <= parseInt($(this).val())) {
+                    $(sliderPairID).val($(this).val());
+                    const sliderLabel = "#".concat("",$(sliderPairID).prop("id").concat("","-value-label"));
+                    $(sliderLabel).text($(sliderPairID).val())
+                }
+            })
+        }
+    });
+}
+// Bind Min to Max sliders
+function linkMinToMaxSliders(sliders) {
+    sliders.each(function () {
+        if($(this).prop("id").includes("max")) {
+            const sliderPairID = "#".concat("", $(this).prop("id")).replace("max", "min");
+            $(this).on("input", function(){
+                if(parseInt($(sliderPairID).val()) > parseInt($(this).val())) {
+                    $(sliderPairID).val($(this).val());
+                    const sliderLabel = "#".concat("",$(sliderPairID).prop("id").concat("","-value-label"));
+                    $(sliderLabel).text($(sliderPairID).val())
+                }
+            })
+        }
+    });
+}
+
 $(document).ready(() => {
     $("#generateName").click(() => {
         const myInterval = setInterval(randomTextAnimation, 10);
@@ -208,18 +308,25 @@ $(document).ready(() => {
             $("#nf").prop(
                 "value",
                 generateName(
-                    $("#consec-option-toggle-button-conson").prop("checked"),
-                    $("#consec-option-toggle-button-vowels").prop("checked"),
-                    $("#consec-maxrow-option-input").val(),
-                    $("#length-mainoption-toggle-button").prop("checked"),
-                    $("#length-maxlength-option-input").val(),
-                    $("#length-minlength-option-input").val(),
-                    $("#wordcount-mainoption-toggle-button").prop("checked"),
-                    $("#wordcount-option-input").val(),
+                    $("#conson-mainoption-toggle-button").prop("checked"),
+                    parseInt($("#conson-maxrowlength-option-input").val()),
+                    parseInt($("#conson-minrowlength-option-input").val()),
+                    parseInt($("#conson-maxrowcount-option-input").val()),
+                    parseInt($("#conson-minrowcount-option-input").val()),
+                    $("#vowels-mainoption-toggle-button").prop("checked"),
+                    parseInt($("#vowels-maxrowlength-option-input").val()),
+                    parseInt($("#vowels-minrowlength-option-input").val()),
+                    parseInt($("#vowels-minrowcount-option-input").val()),
+                    parseInt($("#vowels-minrowcount-option-input").val()),
                     $("#numbers-mainoption-toggle-button").prop("checked"),
-                    $("#numbers-maxrow-option-input").val(),
-                    $("#capital-option-toggle-button-random").prop("checked"),
-                    $("#capital-option-toggle-button-frstcap").prop("checked")
+                    parseInt($("#numbers-maxrowlength-option-input").val()),
+                    parseInt($("#numbers-minrowlength-option-input").val()),
+                    parseInt($("#numbers-minrowcount-option-input").val()),
+                    parseInt($("#numbers-minrowcount-option-input").val()),
+                    $("#wordparams-mainoption-toggle-button").prop("checked"),
+                    parseInt($("#wordparams-wordcount-option-input").val()),
+                    parseInt($("#wordparams-maxlength-option-input").val()),
+                    parseInt($("#wordparams-minlength-option-input").val()),
                 )
             );
         }
@@ -231,9 +338,13 @@ $(document).ready(() => {
 
     tweakCapitalsMainOptionLinks();
 
+    configureSlider();
+
     $($("#all-options-dropdown-toggle-button")).click(function() {
         $("[id$='-options-dropdown']").css("display") === "none"
                 ? $("[id$='-options-dropdown']").css("display", "grid")
                 : $("[id$='-options-dropdown']").css("display", "none");
-        });
+    });
+    
 });
+
