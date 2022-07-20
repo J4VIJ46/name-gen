@@ -1,4 +1,4 @@
 # name-gen
-Simple name generator with a wide variety of options to choose from.
+A synthwave stylized tool for generating quality names with whatever options you would like to see.
 
-A tool for generating quality names with whatever options you would like to see.
+Attention! Due to gambling effect this tool may be habit-forming.
