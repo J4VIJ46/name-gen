@@ -93,6 +93,7 @@ function generateName(
     return fullname.join(" ");
 }
 
+// return difference between passed argument and array sum + margin
 function DifferenceMarginOverflow(index, maxdifference, values) {
     let sum = 0;
     for (let i = 0; i < values.length; i++) {
