@@ -41,11 +41,11 @@
                 <div>
                     <div class="gear-icon" id="conson-options-dropdown-toggle-button"></div>
                     <label>
-                        <input type="checkbox" id="conson-mainoption-toggle-button">
+                        <input type="checkbox" id="conson-mainoption-toggle-button" checked>
                         <div class="checkbox-mainoption">Consonants</div>
                     </label>
                 </div>
-                <div id="conson-options-dropdown">
+                <div id="conson-options-dropdown" style="display: grid">
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Max in a row</div>
                         <input type="range" min="1" max="30" value="1" class="slider" id="conson-maxrowlength-option-input"></input>
@@ -58,12 +58,12 @@
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Max row count</div>
-                        <input type="range" min="1" max="30" value="1" class="slider" id="conson-maxrowcount-option-input">
+                        <input type="range" min="1" max="30" value="3" class="slider" id="conson-maxrowcount-option-input">
                         <div class="input-suboption-range-value" id="conson-maxrowcount-option-input-value-label"></div>
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Min row count</div>
-                        <input type="range" min="1" max="30" value="1" class="slider" id="conson-minrowcount-option-input">
+                        <input type="range" min="1" max="30" value="3" class="slider" id="conson-minrowcount-option-input">
                         <div class="input-suboption-range-value" id="conson-minrowcount-option-input-value-label"></div>
                     </div>
                 </div>
@@ -72,11 +72,11 @@
                 <div>
                     <div class="gear-icon" id="vowels-options-dropdown-toggle-button"></div>
                     <label>
-                        <input type="checkbox" id="vowels-mainoption-toggle-button">
+                        <input type="checkbox" id="vowels-mainoption-toggle-button" checked>
                         <div class="checkbox-mainoption">Vowels</div>
                     </label>
                 </div>
-                <div id="vowels-options-dropdown">
+                <div id="vowels-options-dropdown" style="display: grid">
                     <!-- <div class="option-wrapper">
                         <input type="checkbox" id="consec-option-toggle-button-conson"></input>
                         <label for="consec-option-toggle-button-conson" class="checkbox-suboption"></label>
@@ -94,17 +94,17 @@
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Min in a row</div>
-                        <input type="range" min="1" max="30" value="0" class="slider" id="vowels-minrowlength-option-input">
+                        <input type="range" min="1" max="30" value="1" class="slider" id="vowels-minrowlength-option-input">
                         <div class="input-suboption-range-value" id="vowels-minrowlength-option-input-value-label"></div>
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Max row count</div>
-                        <input type="range" min="1" max="30" value="1" class="slider" id="vowels-maxrowcount-option-input">
+                        <input type="range" min="1" max="30" value="3" class="slider" id="vowels-maxrowcount-option-input">
                         <div class="input-suboption-range-value" id="vowels-maxrowcount-option-input-value-label"></div>
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Min row count</div>
-                        <input type="range" min="1" max="30" value="0" class="slider" id="vowels-minrowcount-option-input">
+                        <input type="range" min="1" max="30" value="2" class="slider" id="vowels-minrowcount-option-input">
                         <div class="input-suboption-range-value" id="vowels-minrowcount-option-input-value-label"></div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Min in a row</div>
-                        <input type="range" min="1" max="30" value="0" class="slider" id="numbers-minrowlength-option-input">
+                        <input type="range" min="1" max="30" value="1" class="slider" id="numbers-minrowlength-option-input">
                         <div class="input-suboption-range-value" id="numbers-minrowlength-option-input-value-label"></div>
                     </div>
                     <div class="input-option-wrapper">
@@ -135,7 +135,7 @@
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Min row count</div>
-                        <input type="range" min="1" max="30" value="0" class="slider" id="numbers-minrowcount-option-input">
+                        <input type="range" min="1" max="30" value="1" class="slider" id="numbers-minrowcount-option-input">
                         <div class="input-suboption-range-value" id="numbers-minrowcount-option-input-value-label"></div>
                     </div>
                 </div>
@@ -151,12 +151,12 @@
                 <div id="wordparams-options-dropdown">
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Word count</div>
-                        <input type="range" min="1" max="30" value="8" class="slider" id="wordparams-wordcount-option-input"></input>
+                        <input type="range" min="1" max="30" value="1" class="slider" id="wordparams-wordcount-option-input"></input>
                         <div class="input-suboption-range-value" id="wordparams-wordcount-option-input-value-label"></div>
                     </div>
                     <div class="input-option-wrapper">
                         <div class="input-suboption-description">Max length</div>
-                        <input type="range" min="1" max="30" value="8" class="slider" id="wordparams-maxlength-option-input">
+                        <input type="range" min="1" max="30" value="30" class="slider" id="wordparams-maxlength-option-input">
                         <div class="input-suboption-range-value" id="wordparams-maxlength-option-input-value-label"></div>
                     </div>
                     <!-- <div class="input-option-wrapper">
