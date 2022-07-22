@@ -1,0 +1,19 @@
+{
+  "name": "name-gen",
+  "version": "0.2.0",
+  "description": "A synthwave stylized tool for generating names with whatever options you would like to see.",
+  "main": "js/script.js",
+  "scripts": {
+    "test": "jest test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J4VIJ46/name-gen.git"
+  },
+  "author": "J4VI",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/J4VIJ46/name-gen/issues"
+  },
+  "homepage": "https://github.com/J4VIJ46/name-gen#readme"
+}
