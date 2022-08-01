@@ -133,54 +133,50 @@ function linkMinToMaxSliders(sliders) {
     });
 }
 
+// Play animation before symbol sequence generation
+function randomTextAnimation() {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    const animTextLength = randNum(4, 10);
+    const animText = [];
+    while (animText.length < animTextLength) {
+        animText.push(alphabet[randNum(0, 26)]);
+    }
+    $("#nf").prop("value", animText.join(""));
+}
+
 $(document).ready(() => {
-    $("#generateName").click(() => {
-        const myInterval = setInterval(randomTextAnimation, 10);
-        let counter = 0;
-        randomTextAnimation();
-
-        // Random symbols animation
-        function randomTextAnimation() {
-            const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-            const animTextLength = randNum(4, 10);
-            const animText = [];
-
-            while (animText.length < animTextLength) {
-                animText.push(alphabet[randNum(0, 26)]);
-            }
-            $("#nf").prop("value", animText.join(""));
+    $("#generate-sequence-button").click(() => {
+        var counter = 0;
+        var i = setInterval(function(){
+            randomTextAnimation();
             counter++;
-            if (counter === 20) {
-                stopAnimationGenerateName();
+            if(counter === 20) {
+                clearInterval(i);
+                $("#nf").prop(
+                    "value",
+                    generateName(new SymbolParameters($("#conson-mainoption-toggle-button").prop("checked"),
+                        parseInt($("#conson-maxrowlength-option-input").val()),
+                        parseInt($("#conson-minrowlength-option-input").val()),
+                        parseInt($("#conson-maxrowcount-option-input").val()),
+                        parseInt($("#conson-minrowcount-option-input").val())),
+                        new SymbolParameters($("#vowels-mainoption-toggle-button").prop("checked"),
+                        parseInt($("#vowels-maxrowlength-option-input").val()),
+                        parseInt($("#vowels-minrowlength-option-input").val()),
+                        parseInt($("#vowels-maxrowcount-option-input").val()),
+                        parseInt($("#vowels-minrowcount-option-input").val())),
+                        new SymbolParameters($("#numbers-mainoption-toggle-button").prop("checked"),
+                        parseInt($("#numbers-maxrowlength-option-input").val()),
+                        parseInt($("#numbers-minrowlength-option-input").val()),
+                        parseInt($("#numbers-maxrowcount-option-input").val()),
+                        parseInt($("#numbers-minrowcount-option-input").val())),
+                        $("#wordparams-mainoption-toggle-button").prop("checked"),
+                        parseInt($("#wordparams-wordcount-option-input").val()),
+                        parseInt($("#wordparams-maxlength-option-input").val()),
+                        parseInt($("#wordparams-minlength-option-input").val()),
+                    )
+                );
             }
-        }
-
-        function stopAnimationGenerateName() {
-            clearInterval(myInterval);
-            $("#nf").prop(
-                "value",
-                generateName(new SymbolParameters($("#conson-mainoption-toggle-button").prop("checked"),
-                    parseInt($("#conson-maxrowlength-option-input").val()),
-                    parseInt($("#conson-minrowlength-option-input").val()),
-                    parseInt($("#conson-maxrowcount-option-input").val()),
-                    parseInt($("#conson-minrowcount-option-input").val())),
-                    new SymbolParameters($("#vowels-mainoption-toggle-button").prop("checked"),
-                    parseInt($("#vowels-maxrowlength-option-input").val()),
-                    parseInt($("#vowels-minrowlength-option-input").val()),
-                    parseInt($("#vowels-maxrowcount-option-input").val()),
-                    parseInt($("#vowels-minrowcount-option-input").val())),
-                    new SymbolParameters($("#numbers-mainoption-toggle-button").prop("checked"),
-                    parseInt($("#numbers-maxrowlength-option-input").val()),
-                    parseInt($("#numbers-minrowlength-option-input").val()),
-                    parseInt($("#numbers-maxrowcount-option-input").val()),
-                    parseInt($("#numbers-minrowcount-option-input").val())),
-                    $("#wordparams-mainoption-toggle-button").prop("checked"),
-                    parseInt($("#wordparams-wordcount-option-input").val()),
-                    parseInt($("#wordparams-maxlength-option-input").val()),
-                    parseInt($("#wordparams-minlength-option-input").val()),
-                )
-            );
-        }
+        }, 15);
     });
 
     configureTogglerDropdown();
@@ -191,12 +187,26 @@ $(document).ready(() => {
 
     configureSlider();
 
+    // Display/Hide all options dropdown contents when button is clicked
     $($("#all-options-dropdown-toggle-button")).click(function() {
         $("[id$='-options-dropdown']").css("display") === "none"
                 ? $("[id$='-options-dropdown']").css("display", "grid")
                 : $("[id$='-options-dropdown']").css("display", "none");
     });
-    
+
+    // Reset options configuration when button is clicked
+    $($("#all-options-reset-button")).click(function() {
+        var element = $("[id$='-option-input']");
+        element.each(function () {
+            $(this).val($(this).prop("defaultValue"));
+            const sliderLabel = "#".concat("",$(this).prop("id").concat("","-value-label"));
+            $(sliderLabel).text($(this).val());
+        });
+    $("#conson-mainoption-toggle-button").prop("checked", true);
+    $("#vowels-mainoption-toggle-button").prop("checked", true);
+    $("#numbers-mainoption-toggle-button").prop("checked", false);
+    $("#wordparams-mainoption-toggle-button").prop("checked", false);
+    }); 
 });
 
 class SymbolParameters {

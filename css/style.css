@@ -41,7 +41,7 @@ body {
     position: absolute;
     text-indent: -9999px;
     left: 10px;
-    top: 150px;
+    top: 165px;
     width: 30px;
     height: 30px;
     opacity: 60%;
@@ -50,6 +50,23 @@ body {
 }
 
 .gears-icon:hover {
+    opacity: 100%;
+}
+
+
+.cross-icon {
+    position: absolute;
+    text-indent: -9999px;
+    left: 10px;
+    top: 135px;
+    width: 30px;
+    height: 30px;
+    opacity: 60%;
+    background-image: url("../pics/cross.svg");
+    background-size: 30px 30px;
+}
+
+.cross-icon:hover {
     opacity: 100%;
 }
 
@@ -442,7 +459,10 @@ input:checked + .checkbox-suboption + .suboption-description {
 }
 @media only screen and (max-width: 600px){
     .gears-icon{
-        top: 120px;
+        top: 205px;
+    }
+    .cross-icon{
+        top: 175px;
     }
     .wrapper {
         text-align: center;

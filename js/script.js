@@ -129,9 +129,13 @@ function getBiggestNumbersIndexes(numbersArray) {
 } 
 
 // min & max values should be positive
+/**
+ * Returns pseudo-random value withing specified range by min and max parameters.
+ */
 function randNum(min, max) {
     // if (max === 1) return Math.round(Math.random());
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 exports.generateName = generateName;
+exports.randNum = randNum;
