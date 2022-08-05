@@ -1,3 +1,14 @@
+/**
+ * Generates sequences of symbols matching given parameters
+ * @param {SymbolParameters} consonants set of options for consonants
+ * @param {SymbolParameters} vowels set of options for vowels
+ * @param {SymbolParameters} numbers set of options for numbers
+ * @param {boolean} wordParamsEnabled 
+ * @param {number} wordParamsWordCount
+ * @param {number} wordParamsWordMaxlength
+ * @param {number} wordParamsWordMinlength
+ * @returns {string} 
+ */
 function generateName(
     consonants,
     vowels,
@@ -80,17 +91,29 @@ function generateName(
     return fullname.join(" ");
 }
 
-// return difference between passed argument and array sum + margin
-function DifferenceMarginOverflow(index, maxdifference, values) {
+/**
+ * Returns difference between passed argument and array sum with a given margin
+ * @param {number} index
+ * @param {number} margin
+ * @param {array} values
+ * @returns {number} 
+ */
+function DifferenceMarginOverflow(index, margin, values) {
     let sum = 0;
     for (let i = 0; i < values.length; i++) {
         if(i === index) continue;
         sum+=values[i];
     }
-    return (sum + maxdifference)-values[index];
+    return (sum + margin)-values[index];
 }
 
-// generate and return sequence of specified character type
+/**
+ * Returns sequence of specified character type
+ * @param {number} index
+ * @param {number} margin
+ * @param {array} values
+ * @returns {number} 
+ */
 function generateRow(charType, rowMinLength, rowMaxLength) {
     let arr = [];
     let rowLength = randNum(rowMinLength, rowMaxLength);
@@ -108,7 +131,11 @@ function generateRow(charType, rowMinLength, rowMaxLength) {
     return result;
 }
 
-// return biggest numerical value of an array
+/**
+ * Returns biggest numerical value of an array
+ * @param {array} array
+ * @returns {number} 
+ */
 function getArrayMax(array) {
     let max = Number.MIN_VALUE;
     for (let index = 0; index < array.length; index++) {
@@ -117,7 +144,11 @@ function getArrayMax(array) {
     return max;
 }
 
-// return biggest number indexes of an array
+/**
+ * Returns indexes with value matching the biggest numerical value of an array
+ * @param {array} array
+ * @returns {number} 
+ */
 function getBiggestNumbersIndexes(numbersArray) {
     let max = getArrayMax(numbersArray);
     let result = [];
@@ -130,7 +161,10 @@ function getBiggestNumbersIndexes(numbersArray) {
 
 // min & max values should be positive
 /**
- * Returns pseudo-random value withing specified range by min and max parameters.
+ * Returns pseudo-random value within specified range by min and max parameters.
+ * @param {number} min 
+ * @param {number} max
+ * @returns {number} 
  */
 function randNum(min, max) {
     // if (max === 1) return Math.round(Math.random());

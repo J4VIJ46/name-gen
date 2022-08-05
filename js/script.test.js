@@ -56,7 +56,7 @@ test("Impossible configuration handling test", () => {
 });
 
 // Test of randNum function with positive integers
-test("RNG test", () => {
+test("RNG positive values test", () => {
     let maxValue = Number.MIN_VALUE;
     let minValue = Number.MAX_VALUE;
     for (let i = 0; i < 10000; i++) {
@@ -66,6 +66,19 @@ test("RNG test", () => {
     }
     expect(maxValue).toBe(50);
     expect(minValue).toBe(0);
+});
+
+// Test of randNum function with negative integers
+test("RNG negative values test", () => {
+    let maxValue = Number.MIN_VALUE;
+    let minValue = Number.MAX_VALUE;
+    for (let i = 0; i < 10000; i++) {
+        let result = generator.randNum(-40, 50);
+        if(result > maxValue) maxValue = result;
+        if(result < minValue) minValue = result;
+    }
+    expect(maxValue).toBe(50);
+    expect(minValue).toBe(-40);
 });
 
 /**
@@ -103,8 +116,6 @@ function countSymbolsByCategory(symbols) {
     }
     return dictionary;
 }
-
-// Add test for more elementary functions
 
 class SymbolParameters {
     constructor(enabled, maxRowLength, minRowLength, maxRowCount, minRowCount) {

@@ -144,6 +144,24 @@ function randomTextAnimation() {
     $("#nf").prop("value", animText.join(""));
 }
 
+function bySymbolTextAnimation(sequence) {
+    var symbolsFromEnd = 0;
+    var l = setInterval(function(){
+        symbolsFromEnd++;
+        var i = setInterval(function(){
+            counter++;
+            if(counter === 20) {
+                clearInterval(i);
+                $("#nf").prop(
+                    "value",
+                    
+                );
+            }
+        }, 15);
+    })
+    
+}
+
 $(document).ready(() => {
     $("#generate-sequence-button").click(() => {
         var counter = 0;
